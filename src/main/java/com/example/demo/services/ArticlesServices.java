@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.models.Articles;
-import com.example.demo.models.Categories;
 import com.example.demo.models.dto.request.ArticleRequest;
 import com.example.demo.models.dto.response.ArticleResponse;
 import com.example.demo.repositories.ArticlesRepositories;
-import com.example.demo.repositories.CategoriesRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -21,7 +19,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ArticlesServices {
     private ArticlesRepositories articlesRepositories;
-    private CategoriesRepository categoriesRepository;
 
     public List<Articles> getALL() {
         return articlesRepositories.findAll();
@@ -70,6 +67,27 @@ public class ArticlesServices {
         newArticle.setUpdatedAt(LocalDateTime.now());
 
         return articlesRepositories.save(newArticle);
+    }
+
+    public Articles updateArticle(Integer id, ArticleRequest articleRequest) {
+        Articles existingArticle = getById(id);
+        existingArticle.setTitle(articleRequest.getTitle());
+        existingArticle.setSlug(articleRequest.getSlug());
+        existingArticle.setBody(articleRequest.getBody());
+        existingArticle.setBanner(articleRequest.getBanner());
+        existingArticle.setCounter(articleRequest.getCounter());
+        existingArticle.setType(articleRequest.getType());
+        existingArticle.setStatus(articleRequest.getStatus());
+        existingArticle.setSlideShow(articleRequest.isSlideShow());
+        existingArticle.setCreatedAt(LocalDateTime.now());
+        existingArticle.setUpdatedAt(LocalDateTime.now());
+
+        return articlesRepositories.save(existingArticle);
+    }
+
+    public void deleteArticle(Integer id) {
+        Articles existingArticle = getById(id);
+        articlesRepositories.delete(existingArticle);
     }
 
 }

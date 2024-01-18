@@ -1,7 +1,5 @@
 package com.example.demo.models.dto.request;
 
-import java.util.List;
-
 import com.example.demo.models.StatusEnum;
 import com.example.demo.models.TypeEnum;
 

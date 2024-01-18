@@ -31,7 +31,7 @@ public class Threads {
     private Integer id;
 
     @Column(length = 100)
-    private String tile;
+    private String title;
 
     @Column(length = 50)
     private String slug;
